@@ -36,7 +36,6 @@ fn main() -> std::io::Result<()> {
                     KeyCode::Backspace => {
                         if !input.is_empty() {
                             input.pop();
-                            stdout.flush()?;
                         } else if let Some(w) = input_words.pop() {
                             input = w;
                         }

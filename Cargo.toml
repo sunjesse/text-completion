@@ -5,3 +5,7 @@ edition = "2021"
 
 [dependencies]
 crossterm = "0.28.1"
+
+[profile.dev]
+opt-level = 1           
+overflow-checks = false 
