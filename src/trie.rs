@@ -50,6 +50,10 @@ impl Trie {
     }
 
     pub fn get_top_k(&self, w: String, mut k: usize) -> Option<Vec<String>> {
+        if w.len() == 0 {
+            return None;
+        }
+
         let mut cur: &Node = &self.root; 
         for c in w.chars() {
             match cur.children.get(&c) {
