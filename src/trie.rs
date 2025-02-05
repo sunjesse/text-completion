@@ -50,7 +50,7 @@ impl Trie {
     }
 
     pub fn get_top_k(&self, w: String, mut k: usize) -> Option<Vec<String>> {
-        if w.len() == 0 {
+        if w.is_empty() {
             return None;
         }
 
