@@ -1,1 +1,2 @@
-# text-completion
+# (WIP) text-completion
+but without the AI
