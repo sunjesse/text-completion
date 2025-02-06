@@ -17,6 +17,7 @@ fn main() -> std::io::Result<()> {
     
     let mut input: String = String::new();
     let mut input_words: Vec<String> = Vec::new();
+    let mut render_string = String::new();
 
     loop {
         if event::poll(std::time::Duration::from_millis(500))? {
@@ -27,6 +28,10 @@ fn main() -> std::io::Result<()> {
                         if c == ' ' {
                             if !input.is_empty() {
                                 input_words.push(input.clone());
+                                if !render_string.is_empty() {
+                                    render_string.push_str(" ");
+                                }
+                                render_string.push_str(&input);
                             }
                             input.clear();
                         } else {
@@ -38,6 +43,7 @@ fn main() -> std::io::Result<()> {
                             input.pop();
                         } else if let Some(w) = input_words.pop() {
                             input = w;
+                            render_string = input_words.join(" ");
                         }
                     }
                     KeyCode::Esc => break,
@@ -52,7 +58,7 @@ fn main() -> std::io::Result<()> {
                 if input_words.is_empty() {
                     println!("\r{}", input);
                 } else {
-                    println!("\r{} {}", input_words.join(" "), input);
+                    println!("\r{} {}", render_string, input);
                 }
                 stdout.flush()?;
             }
