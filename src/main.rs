@@ -50,7 +50,7 @@ fn main() -> std::io::Result<()> {
                     _ => {}
                 }
                 // print suggestions
-                if let Some(words) = trie.get_top_k(input.clone(), 10) {
+                if let Some(words) = trie.get_top_k(&input, 10) {
                     println!("\r{:?}", words);
                 }
 

@@ -49,13 +49,13 @@ impl Trie {
         cur.end
     }
 
-    pub fn get_top_k(&self, w: String, mut k: usize) -> Option<Vec<String>> {
-        if w.is_empty() {
+    pub fn get_top_k(&self, word: &String, mut k: usize) -> Option<Vec<String>> {
+        if word.is_empty() {
             return None;
         }
 
         let mut cur: &Node = &self.root; 
-        for c in w.chars() {
+        for c in word.chars() {
             match cur.children.get(&c) {
                 Some(node) => cur = node,
                 None => return None,
@@ -64,11 +64,11 @@ impl Trie {
 
         let mut ans: Vec<String> = Vec::with_capacity(k);
 
-        self.dfs(cur, w, &mut ans, &mut k);
+        self.dfs(cur, word, &mut ans, &mut k);
         Some(ans)
     }
 
-    fn dfs(&self, node: &Node, word: String, vec: &mut Vec<String>, k: &mut usize) {
+    fn dfs(&self, node: &Node, word: &String, vec: &mut Vec<String>, k: &mut usize) {
         if *k == 0 {
             return;
         }
@@ -81,7 +81,7 @@ impl Trie {
         for (key, child_node) in &(*node).children {
             let mut w: String = word.clone();
             w.push(*key);
-            self.dfs(&child_node, w, vec, k);
+            self.dfs(&child_node, &w, vec, k);
         }
     }
 
