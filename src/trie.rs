@@ -79,6 +79,7 @@ impl Trie {
         }
         
         for (key, child_node) in &(*node).children {
+            // TODO: not a fan of this clone here. See if we can get rid of it?
             let mut w: String = word.clone();
             w.push(*key);
             self.dfs(&child_node, &w, vec, k);
