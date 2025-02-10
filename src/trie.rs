@@ -74,7 +74,7 @@ impl Trie {
         }
 
         if (*node).end {
-            (*vec).push(word.clone()); 
+            vec.push(word.clone()); 
             *k -= 1;
         }
         
