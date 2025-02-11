@@ -1,0 +1,1 @@
+/Users/jessesun/Desktop/text-completion/crates/tc-core/target/debug/text-completion: /Users/jessesun/Desktop/text-completion/crates/tc-core/src/main.rs /Users/jessesun/Desktop/text-completion/crates/tc-core/src/reader.rs /Users/jessesun/Desktop/text-completion/crates/tc-core/src/trie.rs
