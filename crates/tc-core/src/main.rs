@@ -6,11 +6,12 @@ use std::io::{self, Write};
 use crossterm::event::{self, Event, KeyCode};
 use crossterm::terminal::{disable_raw_mode, enable_raw_mode, Clear, ClearType};
 use crossterm::execute;
-use tc_estimator::load_estimator;
+use tc_estimator::estimator::Estimator;
 
 fn main() -> std::io::Result<()> {
     let mut trie: Trie = Trie::new(); 
-    reader::read_from_file("./src/data/words.txt", &mut trie);
+    let mut estimator = Estimator::new();
+    reader::read_to_trie_est("./src/data/rust-lang.txt", &mut trie, &mut estimator);
 
     println!("Vocab length is: {:}.", trie.len());
     enable_raw_mode()?;
@@ -20,7 +21,6 @@ fn main() -> std::io::Result<()> {
     let mut input_words: Vec<String> = Vec::new();
     let mut render_string = String::new();
 
-    let estimator = load_estimator("./src/data/rust-lang.txt");
     loop {
         if event::poll(std::time::Duration::from_millis(500))? {
             if let Event::Key(key_event) = event::read()? {

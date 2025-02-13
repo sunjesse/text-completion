@@ -1,7 +1,7 @@
-mod estimator;
+pub mod estimator;
 mod reader;
 
-use estimator::Estimator;
+pub use estimator::Estimator;
 
 pub fn load_estimator(path: &str) -> Estimator {
     let mut est = Estimator::new();
