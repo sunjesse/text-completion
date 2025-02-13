@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+tc-estimator = { path = "../tc-estimator" }
 crossterm = "0.28.1"
 
 [profile.dev]
