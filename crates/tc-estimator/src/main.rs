@@ -5,11 +5,8 @@ use estimator::Estimator;
 use std::io;
 
 fn trim_newline(s: &mut String) {
-    if s.ends_with('\n') {
+    while matches!(s.chars().last(), Some('\n' | '\r')) {
         s.pop();
-        if s.ends_with('\r') {
-            s.pop();
-        }
     }
 }
 
