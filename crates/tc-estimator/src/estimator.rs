@@ -34,6 +34,7 @@ impl Link {
     }
     
     fn range(&self) -> Vec<String> {
+        // this is ghetto, make it an Option<Vec<_>> class attribute
         let mut kv: Vec<_> = self.next.iter().collect();
         kv.sort_by_key(|&(_, v)| Reverse(v));
         kv.into_iter().take(10).map(|(k, _)| k.clone()).collect()
