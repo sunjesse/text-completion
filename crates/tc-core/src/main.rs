@@ -6,6 +6,7 @@ use std::io::{self, Write};
 use crossterm::event::{self, Event, KeyCode};
 use crossterm::terminal::{disable_raw_mode, enable_raw_mode, Clear, ClearType};
 use crossterm::execute;
+use tc_estimator::load_estimator;
 
 fn main() -> std::io::Result<()> {
     let mut trie: Trie = Trie::new(); 
@@ -19,6 +20,7 @@ fn main() -> std::io::Result<()> {
     let mut input_words: Vec<String> = Vec::new();
     let mut render_string = String::new();
 
+    let estimator = load_estimator("./src/data/rust-lang.txt");
     loop {
         if event::poll(std::time::Duration::from_millis(500))? {
             if let Event::Key(key_event) = event::read()? {
@@ -32,6 +34,9 @@ fn main() -> std::io::Result<()> {
                                     render_string.push_str(" ");
                                 }
                                 render_string.push_str(&input);
+                                if let Some(words) = estimator.range(input.clone()) {
+                                    println!("\r{:?}", words);
+                                }
                             }
                             input.clear();
                         } else {
