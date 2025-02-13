@@ -10,14 +10,26 @@ where P: AsRef<Path>, {
     Ok(io::BufReader::new(file).lines())
 }
 
+fn cleanse(s: &mut String) {
+    while matches!(s.chars().last(), Some('\n' | '.' | ',' | '!')) {
+        s.pop();
+    }
+}
+
 pub fn read_from_file(path: &str, est: &mut Estimator) {
     if let Ok(lines) = read_lines(path) {
         for line in lines.map_while(Result::ok) {
             if !line.is_empty() {
-                let split_line: Vec<String> = line.split_whitespace().map(|x| x.to_string()).collect::<Vec<String>>();
-                println!("{:?}", split_line);
+                let split_line: Vec<String> = line
+                    .split_whitespace()
+                    .map(|x| {
+                        let mut w = x.to_string();
+                        cleanse(&mut w);
+                        w
+                    })
+                    .collect::<Vec<String>>();
+
                 for i in 0..(split_line.len()-1) {
-                    println!("adding {:?} {:?}", split_line[i], split_line[i+1]);
                     est.add_link(&split_line[i], &split_line[i+1]);
                 }
             }

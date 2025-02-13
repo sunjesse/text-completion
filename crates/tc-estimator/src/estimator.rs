@@ -1,4 +1,5 @@
 use std::collections::BTreeMap;
+use std::cmp::Reverse;
 use rand::Rng;
 
 #[derive(Debug)]
@@ -33,7 +34,9 @@ impl Link {
     }
     
     fn range(&self) -> Vec<String> {
-        self.next.iter().map(|(k, _)| k.clone()).collect()
+        let mut kv: Vec<_> = self.next.iter().collect();
+        kv.sort_by_key(|&(_, v)| Reverse(v));
+        kv.into_iter().take(10).map(|(k, _)| k.clone()).collect()
     }
 }
 
